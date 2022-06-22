@@ -1,11 +1,23 @@
 const Webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const path = require('path');
 const publicPath = process.env.ASSET_HOST || '/';
 
 const common = {
   mode: 'development',
+  output: {
+    path: path.resolve(__dirname, '../public'),
+    publicPath,
+    clean: true,
+  },
+}
+
+const serverCompiler = Webpack({
+  ...common,
+  watch: true,
+  target: 'node',
   module: {
     rules: [
       {
@@ -20,17 +32,6 @@ const common = {
       }
     ]
   },
-  output: {
-    path: path.resolve(__dirname, '../public'),
-    publicPath,
-    clean: true,
-  },
-}
-
-const serverCompiler = Webpack({
-  ...common,
-  watch: true,
-  target: 'node',
   entry: {
     server_rendering: './src/server_rendering.js',
   },
@@ -52,15 +53,35 @@ const server = new WebpackDevServer({
   headers: {
     'Access-Control-Allow-Origin': '*',
   },
+  hot: 'only',
+  client: {
+    overlay: true
+  }
 }, Webpack({
   ...common,
   entry: {
     application: './src/application.js',
   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react'],
+            plugins: ['react-refresh/babel']
+          }
+        }
+      }
+    ]
+  },
   plugins: [
     new WebpackManifestPlugin({
       writeToFileEmit: true
-    })
+    }),
+    new ReactRefreshWebpackPlugin()
   ],
   output: {
     ...common.output,

@@ -9,3 +9,8 @@ The Webpack generated files are served from the `/public` directory, but in a pr
 
     ASSET_HOST=https://assets.mysite.org/assets/ npm run build:production
 Then once the assets are compiled, copy the files over to this static resource. Even easier would be to use a Cloudfront distribution that points back to these files.
+
+## Features
+- MacOS / Windows / Linux support
+- React server-side rendering
+- React Fast Refresh
