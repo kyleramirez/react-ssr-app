@@ -13,4 +13,9 @@ Then once the assets are compiled, copy the files over to this static resource. 
 ## Features
 - MacOS / Windows / Linux support
 - React server-side rendering
-- React Fast Refresh
+
+
+
+- side effects
+- real demonstrated streaming
+- HMR / React Fast Refresh

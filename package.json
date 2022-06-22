@@ -2,31 +2,31 @@
   "name": "ssr-demo",
   "private": true,
   "engines": {
-    "npm": "~8.5.5",
-    "node": "~16.15.0"
+    "npm": "^8.5.5",
+    "node": "^16.15.0"
   },
   "scripts": {
-    "build:production": "node webpack/build.js",
-    "start": "node index.js",
-    "start:server": "nodemon index.js",
-    "start:webpack": "node -r dotenv-safe/config webpack/server.js"
+    "start": "node server/server.js",
+    "start:development": "concurrently \"npm run start:server\" \"npm run start:webpack\"",
+    "start:server": "nodemon -r dotenv-safe/config server/server.js",
+    "start:webpack": "node -r dotenv-safe/config scripts/build.js"
   },
   "dependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/register": "^7.17.7",
+    "babel-preset-react-app": "^10.0.1",
+    "compression": "^1.7.4",
     "express": "^4.18.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.5",
-    "@babel/preset-react": "^7.17.12",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "babel-loader": "^8.2.5",
+    "concurrently": "^7.2.2",
     "dotenv-safe": "^8.2.0",
     "nodemon": "^2.0.16",
-    "react-refresh": "^0.14.0",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.2",
     "webpack-manifest-plugin": "^5.0.0"
   }
 }
