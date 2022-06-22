@@ -1,0 +1,8 @@
+{
+  "watch": [
+    "index.js",
+    "public/server_rendering.js",
+    "public/manifest.json"
+  ],
+  "ext": "js,json"
+}

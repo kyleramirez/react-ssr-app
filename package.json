@@ -1,0 +1,29 @@
+{
+  "name": "ssr-demo",
+  "private": true,
+  "engines": {
+    "npm": "^8.11.0",
+    "node": "^16.15.1"
+  },
+  "scripts": {
+    "build:production": "node webpack/build.js",
+    "start": "node index.js",
+    "start:server": "nodemon index.js",
+    "start:webpack": "ASSET_HOST=http://localhost:8080/ node webpack/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-react": "^7.17.12",
+    "babel-loader": "^8.2.5",
+    "nodemon": "^2.0.16",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2",
+    "webpack-manifest-plugin": "^5.0.0"
+  }
+}
