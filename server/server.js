@@ -1,20 +1,20 @@
-
 const babelRegister = require('@babel/register');
 babelRegister({
   ignore: [/[\\/](build|server\/server|node_modules)[\\/]/],
   presets: [['react-app', { runtime: 'automatic', useESModules: false }]],
   plugins: [
     '@babel/transform-modules-commonjs'
-  ],
+  ]
 });
+const production = process.env.NODE_ENV === 'production';
+const PORT = process.env.PORT || 3000;
 const { readFileSync } = require('fs');
 const path = require('path');
 const express = require('express');
 const compress = require('compression');
-const render = require('./render');
-const PORT = process.env.PORT || 4000;
+
 let manifest;
-if (process.env.NODE_ENV === 'production') {
+if (production) {
   manifest = JSON.parse(readFileSync(path.resolve(__dirname, '../build/manifest.json')));
 }
 
@@ -39,11 +39,15 @@ const waitForWebpack = async () => {
 
 const app = express();
 app.use(compress());
+if (!production) {
+  const enableHotModuleReplacement = require('./hot');
+  enableHotModuleReplacement(app);
+}
 app.get('/', handleErrors(async (req, res) => {
-  if (process.env.NODE_ENV === 'development') {
+  if (!production) {
     manifest = await waitForWebpack();
   }
-  render(req.url, res, manifest);
+  require('./render')(req.url, res, manifest);
 }));
 app.use(express.static('build'));
 app.listen(PORT, () => { console.log(`Listening at ${PORT}...`); })

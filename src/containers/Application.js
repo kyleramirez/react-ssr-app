@@ -1,9 +1,11 @@
 import React from 'react';
+import Nav from './Nav';
 
 const Application = ({ path }) => {
   return (
     <>
-      <h1>It works!</h1>
+      <Nav />
+      <h1>It works!!!</h1>
       <code>{path}</code>
     </>
   );
