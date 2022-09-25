@@ -1,9 +1,12 @@
 import React from 'react';
+import DocumentTitle from '../ui/DocumentTitle';
 
 const Nav = () => {
   return (
     <nav>
-      <a href="/">Home</a>
+      <DocumentTitle title="2Legit">
+        <a href="/">Home</a>
+      </DocumentTitle>
     </nav>
   );
 };

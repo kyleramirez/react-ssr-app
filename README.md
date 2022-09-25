@@ -15,8 +15,10 @@ Then once the assets are compiled, copy the files over to this static resource. 
 - React server-side rendering
 
 
+- want to have streaming
+    - can't have streaming with side effects for the document title
+    - 
 
-- side effects
-- real demonstrated streaming
-- HMR / React Fast Refresh
-- minification
+- want to have side effects for document title
+- want to have React Fast Refresh
+- want to be able to include from the src directory on whole front-end
